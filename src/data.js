@@ -1,4 +1,4 @@
-const data = {
+export const data = {
   arts: [
     {
       name: 'Nike Slim shirt',

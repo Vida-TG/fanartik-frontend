@@ -1,12 +1,11 @@
 import { useEffect, useReducer, useState } from "react";
 import axios from "axios";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Art from "../components/Art";
 import { Helmet } from "react-helmet-async";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
-// import data from '../data';
+import TopArtists from "../components/TopArtists";
+import HighlightText from "../components/HighlightText";
+import TopCarousel from "../components/TopCarousel";
+import Featured from "../components/Featured";
+import ItemTypes from "../components/ItemTypes";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,24 +44,13 @@ function HomeScreen() {
   return (
     <div>
       <Helmet>
-        <title>Amazona</title>
+        <title>FanArtiks</title>
       </Helmet>
-      <h1>Featured Arts</h1>
-      <div className="arts">
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-          <Row>
-            {arts.map((art) => (
-              <Col key={art.slug} sm={6} md={4} lg={3} className="mb-3">
-                <Art art={art}></Art>
-              </Col>
-            ))}
-          </Row>
-        )}
-      </div>
+      <HighlightText />
+      <TopCarousel />
+      <Featured />
+      <ItemTypes />
+      <TopArtists />
     </div>
   );
 }

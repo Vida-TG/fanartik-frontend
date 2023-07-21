@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Box, Flex, Image, Text, useColorMode } from '@chakra-ui/react';
-import { data } from "../../data";
+import { data } from '../data'
 
 const handleDragStart = (e) => e.preventDefault();
 
@@ -33,7 +33,7 @@ const TopCarousel = () => {
   return (
     <AliceCarousel autoPlay autoPlayInterval={3000} responsive={responsive} infinite mouseTracking>
       {
-        data.items.map(
+        data.arts.map(
           item => (
             <Box key={item.id} className={colorMode == "dark" ? "carouselItem carouselDark" : "carouselItem carouselLight" } onDragStart={handleDragStart} role="presentation">
               <Link to={`/item/${item.slug}`}>

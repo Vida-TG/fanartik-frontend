@@ -19,7 +19,7 @@ function Art(props) {
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/arts/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert('Sorry. Art is out of stock');
+      window.alert('Sorry. Artwork is out of stock');
       return;
     }
     ctxDispatch({
