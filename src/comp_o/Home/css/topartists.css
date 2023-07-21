@@ -1,0 +1,39 @@
+.large-screen {
+
+}
+
+.large-screen-card {
+    height: 200px;
+    width: 180px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid #ccc;
+}
+.large-screen-card-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 40px;
+}
+.large-screen-card-sales {
+    flex-direction: row;
+    width: 100%;
+}
+.small-screen-card {
+    height: 50px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid #ccc;
+}
+.small-screen-card-image {
+    height: 36px;
+    width: 36px;
+    border-radius: 18px;
+}
+.small-screen-card-sales {
+    flex-direction: column;
+    font-size: x-small;
+    text-align: center;
+    text-transform: uppercase;
+}

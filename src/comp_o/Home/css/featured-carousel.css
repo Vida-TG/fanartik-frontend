@@ -1,0 +1,16 @@
+featured-item {
+  width: calc(100% - 10px);
+  height: 400px;
+  border-radius: 20px;
+  object-fit: contain;
+  padding: 10px;
+  color: var(--chakra-colors-chakra-body-text);
+  background: transparent;
+}
+
+.featured-large {
+  width: 52%;
+}
+.featured-small {
+  width: 100%;
+}

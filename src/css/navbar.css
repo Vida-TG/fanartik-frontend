@@ -1,0 +1,12 @@
+.spacing {
+    margin: 0px 10px !important;
+}
+.hamburger {
+    font-size: 30px;
+    cursor: pointer;
+}
+.mobile-link {
+    display: block;
+    margin: 15px 0px;
+    width: 100%;
+}
