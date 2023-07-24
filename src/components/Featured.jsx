@@ -49,7 +49,6 @@ const Featured = () => {
             dispatch({ type: 'FETCH_REQUEST'});
             try {
                 const result = await axios.get('/api/arts');
-                console.log(result)
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -86,7 +85,7 @@ const Featured = () => {
                 ) : error ? (
                     <MessageBox variant="danger">{error}</MessageBox>
                 ) : (
-                    arts.map((art, index) => (
+                    arts.map((art) => (
                         <Box key={art.slug}>
                           <Art art={art}></Art>
                         </Box>
