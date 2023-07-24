@@ -5,7 +5,7 @@ import {
   GoogleMap,
   StandaloneSearchBox,
   Marker,
-} from '@react-google-maps/api';
+} from '@react-google-mapshttps://fanartiks.onrender.com/api';
 import { useNavigate } from 'react-router-dom';
 import { Store } from '../Store';
 import Button from 'react-bootstrap/Button';
@@ -44,7 +44,7 @@ export default function MapScreen() {
   };
   useEffect(() => {
     const fetch = async () => {
-      const { data } = await axios('/api/keys/google', {
+      const { data } = await axios('https://fanartiks.onrender.com/api/keys/google', {
         headers: { Authorization: `BEARER ${userInfo.token}` },
       });
       setGoogleApiKey(data.key);

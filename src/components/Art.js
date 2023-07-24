@@ -17,7 +17,7 @@ function Art(props) {
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === art._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/arts/${item._id}`);
+    const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Artwork is out of stock');
       return;

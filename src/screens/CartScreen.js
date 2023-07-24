@@ -18,7 +18,7 @@ export default function CartScreen() {
   } = state;
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/arts/${item._id}`);
+    const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert('Sorry. Art is out of stock');
       return;

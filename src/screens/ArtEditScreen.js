@@ -127,7 +127,7 @@ export default function ArtEditScreen() {
     bodyFormData.append('file', file);
     try {
       dispatch({ type: 'UPLOAD_REQUEST' });
-      const { data } = await axios.post('/api/upload', bodyFormData, {
+      const { data } = await axios.post('https://fanartiks.onrender.com/api/upload', bodyFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           authorization: `Bearer ${userInfo.token}`,

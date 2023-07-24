@@ -80,7 +80,7 @@ export default function ArtListScreen() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/arts/admin?page=${page} `, {
+        const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/admin?page=${page} `, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
 
@@ -100,7 +100,7 @@ export default function ArtListScreen() {
       try {
         dispatch({ type: 'CREATE_REQUEST' });
         const { data } = await axios.post(
-          '/api/arts',
+          'https://fanartiks.onrender.com/api/arts',
           {},
           {
             headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -121,7 +121,7 @@ export default function ArtListScreen() {
   const deleteHandler = async (art) => {
     if (window.confirm('Are you sure to delete?')) {
       try {
-        await axios.delete(`/api/arts/${art._id}`, {
+        await axios.delete(`https://fanartiks.onrender.com/api/arts/${art._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success('art deleted successfully');
