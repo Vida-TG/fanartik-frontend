@@ -48,7 +48,7 @@ const Featured = () => {
         const fetchData = async () => {
             dispatch({ type: 'FETCH_REQUEST'});
             try {
-                const result = await axios.get('/api/arts');
+                const result = await axios.get('https://fanartiks.onrender.com/api/arts');
                 console.log(result)
                 console.log(result.data)
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
