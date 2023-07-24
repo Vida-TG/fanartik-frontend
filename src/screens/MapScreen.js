@@ -5,7 +5,7 @@ import {
   GoogleMap,
   StandaloneSearchBox,
   Marker,
-} from '@react-google-mapshttps://fanartiks.onrender.com/api';
+} from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 import { Store } from '../Store';
 import Button from 'react-bootstrap/Button';
