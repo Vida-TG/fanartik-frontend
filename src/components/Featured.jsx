@@ -86,7 +86,7 @@ const Featured = () => {
                 ) : error ? (
                     <MessageBox variant="danger">{error}</MessageBox>
                 ) : (
-                    arts.map(art => (
+                    arts.map((art, index) => (
                         <Box key={art.slug}>
                           <Art art={art}></Art>
                         </Box>
