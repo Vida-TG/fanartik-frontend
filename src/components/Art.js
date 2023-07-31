@@ -27,14 +27,14 @@ function Art(props) {
   };
 
   return (
-    <Card maxW='sm'>
+    <Card maxW='sm' m="auto">
       <CardBody>
         <Link to={`/art/${art.slug}`}>
           <Image
             src={art.image}
             alt={art.name}
             borderRadius='lg'
-            h="250"
+            w="100%"
           />
         </Link>
         <Flex flexDir='column' align='center' mt='3'>

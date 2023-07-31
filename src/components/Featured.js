@@ -1,10 +1,10 @@
 import  React, { useContext, useEffect, useReducer } from "react";
 import axios from 'axios';
-import { Box, Flex, Text, Skeleton, useMediaQuery, SkeletonText } from '@chakra-ui/react';
+import { Box, Flex, Text, Skeleton, useMediaQuery } from '@chakra-ui/react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import MessageBox from "../components/MessageBox";
+import MessageBox from "./MessageBox";
 
 import { getError } from "../utils";
 import FeaturedArt from "./FeaturedArt";

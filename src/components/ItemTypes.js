@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Image, Text, Skeleton } from '@chakra-ui/react'
 import logo from './assets/images/topaz.png'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import React, { useContext, useState, useEffect, useReducer } from "react";
 import { Store } from "../Store";
+import MessageBox from "./MessageBox";
 
 import { getError } from "../utils";
 import Art from "./Art";
@@ -93,7 +94,7 @@ const ItemTypes = () => {
         setType3(true)
     }
   return (
-    <Box w="95%" maxW="1200px" m="10px auto" p="30px 3% 50px 3%" borderRadius="20px" background="#333">
+    <Box w="95%" maxW="1200px" m="10px auto" p="30px 3% 50px 3%" borderRadius="20px" bg="rgba(0,0,0, 0.1)">
         <Flex m="10px auto" justify="center">
             <Button m="0px 10px" onClick={type1Clicked} background={type1 ? 'var(--chakra-colors-chakra-body-bg)' : 'none'}>Painting</Button>
             <Button m="0px 10px" onClick={type2Clicked} background={type2 ? 'var(--chakra-colors-chakra-body-bg)' : 'none'}>Digital</Button>
@@ -102,172 +103,55 @@ const ItemTypes = () => {
 
         {type1 &&
         <Slider {...settings}>
-            <Box className="featured-item">
-                <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                    <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                    <Flex align="center">
-                        <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                        <Flex flexDir="column" m="0px 15px">
-                            <Text fontSize="12px">Harrison ONE</Text>
-                            <Text fontSize="12px">@harry_wells</Text>
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
+            {
+                loading ? (
+                    <Skeleton display="inline" h='300' />
+                ) : error ? (
+                    <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
+                ) : (
+                    arts.map((art) => (
+                        <Box key={art.slug} p="0px 2%" w="96%">
+                          <Art art={art}></Art>
+                        </Box>
+                    ))
+                )
+            }
         </Slider>
         }
 
         {type2 &&
         <Slider {...settings}>
-            <Box className="featured-item">
-                <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                    <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                    <Flex align="center">
-                        <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                        <Flex flexDir="column" m="0px 15px">
-                            <Text fontSize="12px">Harrison TWO</Text>
-                            <Text fontSize="12px">@harry_wells</Text>
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
+            {
+                loading ? (
+                    <Skeleton h='300' />
+                ) : error ? (
+                    <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
+                ) : (
+                    arts.map((art) => (
+                        <Box key={art.slug} p="0px 2%" w="96%">
+                          <Art art={art}></Art>
+                        </Box>
+                    ))
+                )
+            }
         </Slider>
         }
         
         {type3 &&
         <Slider {...settings}>
-            <Box className="featured-item">
-                <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                    <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                    <Flex align="center">
-                        <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                        <Flex flexDir="column" m="0px 15px">
-                            <Text fontSize="12px">Harrison THREE</Text>
-                            <Text fontSize="12px">@harry_wells</Text>
-                        </Flex>
-                    </Flex>
-                </Flex>
-            </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
-                <Box className="featured-item">
-                    <Image h="250px" w="300px" borderTopRadius="20" src={logo} m="auto" background="transparent" />
-                    <Flex w="300px" h="100px" p="10px" justify="space-around" flexDir="column" m="auto" backgroundColor="rgba(250, 250, 250, 0.05)" borderBottomRadius="20">
-                        <Text textTransform="uppercase" textAlign="center">The rise of Near</Text>
-                        <Flex align="center">
-                            <Image h="30px" w="30px" borderRadius="15" src={logo} />
-                            <Flex flexDir="column" m="0px 15px">
-                                <Text fontSize="12px">Harrison Hills</Text>
-                                <Text fontSize="12px">@harry_wells</Text>
-                            </Flex>
-                        </Flex>
-                    </Flex>
-                </Box>
+            {
+                loading ? (
+                    <Skeleton h='300' />
+                ) : error ? (
+                    <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
+                ) : (
+                    arts.map((art) => (
+                        <Box key={art.slug} p="0px 2%" w="96%">
+                          <Art art={art}></Art>
+                        </Box>
+                    ))
+                )
+            }
         </Slider>
         }
     </Box>

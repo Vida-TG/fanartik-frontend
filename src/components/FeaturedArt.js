@@ -61,7 +61,7 @@ function FeaturedArt(props) {
                     Add to cart
                 </Button>
             )}
-            <Text color='blue.600' pl="5" fontSize='2xl'>
+            <Text color='blue.300' pl="3" fontSize='2xl'>
                 ${art.price}
             </Text>
             </CardFooter>
