@@ -1,15 +1,13 @@
 import  React, { useContext, useEffect, useReducer } from "react";
 import axios from 'axios';
-import { Box, Flex, Text, useMediaQuery } from '@chakra-ui/react';
-
+import { Box, Flex, Text, Skeleton, useMediaQuery, SkeletonText } from '@chakra-ui/react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
 import { getError } from "../utils";
-import Art from "./Art";
+import FeaturedArt from "./FeaturedArt";
 import './css/featured-carousel.css';
 import { Store } from "../Store";
 
@@ -74,22 +72,22 @@ const Featured = () => {
         slidesToScroll: 1
     };
     return (
-        <Flex flexDir={isNotSmallerScreen ? "row" : "column"} style={{position: 'relative', top: "-80px"}} w="100vw !important" maxW="100vw">
-            <Flex w={isNotSmallerScreen ? "40%" : "100%"} p="5%" justify="center" align="center">
-                <Text fontSize="4xl">
+        <Flex flexDir={isNotSmallerScreen ? "row" : "column"} style={{position: 'relative', top: "-80px"}} maxW="100vw">
+            <Flex w={isNotSmallerScreen ? "40%" : "100%"} justify="center" align="center">
+                <Text fontSize="5xl" textAlign="center">
                     This week's featured artworks
                 </Text>
             </Flex>
             <Slider {...settings} className={isNotSmallerScreen ? "featured-large" : "featured-small"}>
             {
                 loading ? (
-                    <LoadingBox />
+                    <Skeleton h='300' />
                 ) : error ? (
-                    <MessageBox variant="danger">{error}</MessageBox>
+                    <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
                 ) : (
                     arts.map((art) => (
                         <Box key={art.slug}>
-                          <Art art={art}></Art>
+                          <FeaturedArt art={art}></FeaturedArt>
                         </Box>
                     ))
                 )

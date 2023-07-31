@@ -1,7 +1,8 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import theme from './theme'
 import { HelmetProvider } from 'react-helmet-async';
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -17,6 +18,7 @@ root.render(
       <HelmetProvider>
         <ChakraProvider>
           <PayPalScriptProvider deferLoading={true}>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
             <App />
           </PayPalScriptProvider>
         </ChakraProvider>

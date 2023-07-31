@@ -1,10 +1,8 @@
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import Rating from './Rating';
 import axios from 'axios';
 import { useContext } from 'react';
 import { Store } from '../Store';
+import { Card, Image, CardBody, Heading, Text, Flex, Button } from '@chakra-ui/react'
 
 function Art(props) {
   const { art } = props;
@@ -29,24 +27,36 @@ function Art(props) {
   };
 
   return (
-    <Card>
-      <Link to={`/art/${art.slug}`}>
-        <img src={art.image} className="card-img-top" alt={art.name} />
-      </Link>
-      <Card.Body>
+    <Card maxW='sm'>
+      <CardBody>
         <Link to={`/art/${art.slug}`}>
-          <Card.Title>{art.name}</Card.Title>
+          <Image
+            src={art.image}
+            alt={art.name}
+            borderRadius='lg'
+            h="250"
+          />
         </Link>
-        <Rating rating={art.rating} numReviews={art.numReviews} />
-        <Card.Text>${art.price}</Card.Text>
-        {art.countInStock === 0 ? (
-          <Button variant="light" disabled>
-            Out of stock
-          </Button>
-        ) : (
-          <Button onClick={() => addToCartHandler(art)}>Add to cart</Button>
-        )}
-      </Card.Body>
+        <Flex flexDir='column' align='center' mt='3'>
+          <Link to={`/art/${art.slug}`}>
+            <Heading size='md'>{art.name}</Heading>
+          </Link>
+          <Text color='blue.600' fontSize='2xl'>
+            ${art.price}
+          </Text>
+        </Flex>
+        <Flex w="100%" justify='center' align='center'>
+          {art.countInStock === 0 ? (
+            <Button disabled>
+              Out of stock
+            </Button>
+          ) : (
+            <Button variant='solid' colorScheme='blue' onClick={() => addToCartHandler(art)}>
+              Add to cart
+            </Button>
+          )}
+        </Flex>
+      </CardBody>
     </Card>
   );
 }

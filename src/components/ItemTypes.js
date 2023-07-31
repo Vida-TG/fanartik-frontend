@@ -3,9 +3,33 @@ import logo from './assets/images/topaz.png'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useContext, useState, useEffect, useReducer } from "react";
+import { Store } from "../Store";
+
+import { getError } from "../utils";
+import Art from "./Art";
+
+
+
+
+const reducer = (state, action) => {
+    switch(action.type) {
+        case 'FETCH_REQUEST':
+            return { ...state, loading: true };
+        case 'FETCH_SUCCESS':
+            return { ...state, arts: action.payload, loading: false, error: '' };
+        case 'FETCH_FAIL':
+            return { ...state, loading: false, error: action.payload, arts: [] };
+        default:
+            return state;
+    }
+};
+
+
 
 const ItemTypes = () => {
+    
     const [ type1, setType1 ] = React.useState(true)
     const [ type2, setType2 ] = React.useState(false)
     const [ type3, setType3 ] = React.useState(false)
@@ -19,6 +43,31 @@ const ItemTypes = () => {
     } else if (width > 1000) {
         slidesNum = 3
     }
+    
+
+    const [{ loading, error, arts }, dispatch] = useReducer(reducer, {
+        arts: [],
+        error: '',
+        loading: true,
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            dispatch({ type: 'FETCH_REQUEST'});
+            try {
+                const result = await axios.get('https://fanartiks.onrender.com/api/arts');
+                dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+            } catch (err) {
+                dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
+                console.log(err)
+            }
+        }
+        fetchData()
+    }, [])
+
+
+    const { state, dispatch: ctxDispatch } = useContext(Store);
+        
 
     const settings = {
         dots: true,

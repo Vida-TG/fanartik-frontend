@@ -12,5 +12,6 @@ featured-item {
   width: 52%;
 }
 .featured-small {
-  width: 100%;
+  width: 90%;
+  margin: auto;
 }
