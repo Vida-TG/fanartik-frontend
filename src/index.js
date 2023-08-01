@@ -1,8 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import theme from './theme'
 import { HelmetProvider } from 'react-helmet-async';
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript, extendTheme } from '@chakra-ui/react'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -10,7 +9,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StoreProvider } from './Store';
 
+const colors = {
+  brand: {
+    500: '#191319'
+  }
+}
+
 const root = createRoot(document.getElementById('root'));
+const theme = extendTheme({ colors })
 
 root.render(
   <React.StrictMode>
@@ -18,7 +24,7 @@ root.render(
       <HelmetProvider>
         <ChakraProvider>
           <PayPalScriptProvider deferLoading={true}>
-            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+            <ColorModeScript theme={theme} />
             <App />
           </PayPalScriptProvider>
         </ChakraProvider>

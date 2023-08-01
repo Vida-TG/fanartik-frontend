@@ -81,7 +81,7 @@ const Featured = () => {
             <Slider {...settings} className={isNotSmallerScreen ? "featured-large" : "featured-small"}>
             {
                 loading ? (
-                    <Skeleton h='300' />
+                    <Skeleton h='300' w='100%' />
                 ) : error ? (
                     <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
                 ) : (

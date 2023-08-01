@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useContext, useReducer, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { Store } from '../Store';
@@ -14,18 +14,12 @@ import Button from 'react-bootstrap/Button';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'FETCH_REQUEST':
-      return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
-      return { ...state, loading: false };
-    case 'FETCH_FAIL':
-      return { ...state, loading: false, error: action.payload };
-    case 'UPDATE_REQUEST':
-      return { ...state, loadingUpdate: true };
-    case 'UPDATE_SUCCESS':
-      return { ...state, loadingUpdate: false };
-    case 'UPDATE_FAIL':
-      return { ...state, loadingUpdate: false };
+    case 'CREATE_REQUEST':
+      return { ...state, loadingCreate: true };
+    case 'CREATE_SUCCESS':
+      return { ...state, loadingCreate: false };
+    case 'CREATE_FAIL':
+      return { ...state, loadingCreate: false };
     case 'UPLOAD_REQUEST':
       return { ...state, loadingUpload: true, errorUpload: '' };
     case 'UPLOAD_SUCCESS':
@@ -41,21 +35,18 @@ const reducer = (state, action) => {
       return state;
   }
 };
-export default function ArtEditScreen() {
+export default function ArtCreateScreen() {
   const navigate = useNavigate();
-  const params = useParams(); // /art/:id
-  const { id: artId } = params;
 
   const { state } = useContext(Store);
   const { userInfo } = state;
-  const [{ loading, error, loadingUpdate, loadingUpload }, dispatch] =
+  const [{ loading, error, loadingCreate, loadingUpload }, dispatch] =
     useReducer(reducer, {
-      loading: true,
+      loading: false,
       error: '',
     });
 
   const [name, setName] = useState('');
-  const [slug, setSlug] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
   const [images, setImages] = useState([]);
@@ -63,40 +54,14 @@ export default function ArtEditScreen() {
   const [noOfPieces, setnoOfPieces] = useState('');
   const [description, setDescription] = useState('');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/arts/${artId}`);
-        setName(data.name);
-        setSlug(data.slug);
-        setPrice(data.price);
-        setImage(data.image);
-        setImages(data.images);
-        setCategory(data.category);
-        setnoOfPieces(data.noOfPieces);
-        setDescription(data.description);
-        dispatch({ type: 'FETCH_SUCCESS' });
-      } catch (err) {
-        dispatch({
-          type: 'FETCH_FAIL',
-          payload: getError(err),
-        });
-      }
-    };
-    fetchData();
-  }, [artId]);
-
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      dispatch({ type: 'UPDATE_REQUEST' });
-      await axios.put(
-        `/api/arts/${artId}`,
+      dispatch({ type: 'CREATE_REQUEST' });
+      await axios.post(
+        `/api/arts`,
         {
-          _id: artId,
           name,
-          slug,
           price,
           image,
           images,
@@ -109,13 +74,13 @@ export default function ArtEditScreen() {
         }
       );
       dispatch({
-        type: 'UPDATE_SUCCESS',
+        type: 'CREATE_SUCCESS',
       });
-      toast.success('Art updated successfully');
-      navigate('/admin/arts');
+      toast.success('Art created successfully');
+      navigate('/');
     } catch (err) {
       toast.error(getError(err));
-      dispatch({ type: 'UPDATE_FAIL' });
+      dispatch({ type: 'CREATE_FAIL' });
     }
   };
   const uploadFileHandler = async (e, forImages) => {
@@ -153,9 +118,9 @@ export default function ArtEditScreen() {
   return (
     <Container className="small-container">
       <Helmet>
-        <title>Edit Art ${artId}</title>
+        <title>Create Art</title>
       </Helmet>
-      <h1>Edit Art {artId}</h1>
+      <h1>Create Art</h1>
 
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -168,14 +133,6 @@ export default function ArtEditScreen() {
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="slug">
-            <Form.Label>Slug</Form.Label>
-            <Form.Control
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
               required
             />
           </Form.Group>
@@ -249,10 +206,10 @@ export default function ArtEditScreen() {
             />
           </Form.Group>
           <div className="mb-3">
-            <Button disabled={loadingUpdate} type="submit">
-              Update
+            <Button disabled={loadingCreate} type="submit">
+              Create
             </Button>
-            {loadingUpdate && <LoadingBox></LoadingBox>}
+            {loadingCreate && <LoadingBox></LoadingBox>}
           </div>
         </Form>
       )}

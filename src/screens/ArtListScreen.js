@@ -97,24 +97,7 @@ export default function ArtListScreen() {
 
   const createHandler = async () => {
     if (window.confirm('Are you sure to create?')) {
-      try {
-        dispatch({ type: 'CREATE_REQUEST' });
-        const { data } = await axios.post(
-          'https://fanartiks.onrender.com/api/arts',
-          {},
-          {
-            headers: { Authorization: `Bearer ${userInfo.token}` },
-          }
-        );
-        toast.success('art created successfully');
-        dispatch({ type: 'CREATE_SUCCESS' });
-        navigate(`/admin/art/${data.art._id}`);
-      } catch (err) {
-        toast.error(getError(error));
-        dispatch({
-          type: 'CREATE_FAIL',
-        });
-      }
+      navigate('/creator/art/create')
     }
   };
 
@@ -166,7 +149,6 @@ export default function ArtListScreen() {
                 <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
-                <th>BRAND</th>
                 <th>ACTIONS</th>
               </tr>
             </thead>
@@ -177,7 +159,6 @@ export default function ArtListScreen() {
                   <td>{art.name}</td>
                   <td>{art.price}</td>
                   <td>{art.category}</td>
-                  <td>{art.brand}</td>
                   <td>
                     <Button
                       type="button"

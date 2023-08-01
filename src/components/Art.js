@@ -16,8 +16,8 @@ function Art(props) {
     const existItem = cartItems.find((x) => x._id === art._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${item._id}`);
-    if (data.countInStock < quantity) {
-      window.alert('Sorry. Artwork is out of stock');
+    if (data.noOfPieces < quantity) {
+      window.alert('Sorry. Artwork is sold out');
       return;
     }
     ctxDispatch({
@@ -27,7 +27,7 @@ function Art(props) {
   };
 
   return (
-    <Card maxW='sm' m="auto">
+    <Card maxW='sm' m="auto" background="rgba(0,0,0, 0.1)">
       <CardBody>
         <Link to={`/art/${art.slug}`}>
           <Image
@@ -46,13 +46,13 @@ function Art(props) {
           </Text>
         </Flex>
         <Flex w="100%" justify='center' align='center'>
-          {art.countInStock === 0 ? (
+          {art.noOfPieces === 0 ? (
             <Button disabled>
-              Out of stock
+              Sold Out
             </Button>
           ) : (
             <Button variant='solid' colorScheme='blue' onClick={() => addToCartHandler(art)}>
-              Add to cart
+              Add to Cart
             </Button>
           )}
         </Flex>

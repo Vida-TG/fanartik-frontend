@@ -19,8 +19,8 @@ export default function CartScreen() {
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${item._id}`);
-    if (data.countInStock < quantity) {
-      window.alert('Sorry. Art is out of stock');
+    if (data.noOfPieces < quantity) {
+      window.alert('Sorry. Artwork is sold out');
       return;
     }
     ctxDispatch({
@@ -77,7 +77,7 @@ export default function CartScreen() {
                         onClick={() =>
                           updateCartHandler(item, item.quantity + 1)
                         }
-                        disabled={item.quantity === item.countInStock}
+                        disabled={item.quantity === item.noOfPieces}
                       >
                         <i className="fas fa-plus-circle"></i>
                       </Button>

@@ -17,7 +17,9 @@ import SearchScreen from './screens/SearchScreen';
 import ProtectedRoute from './components/ProtectedRoute';
 import DashboardScreen from './screens/DashboardScreen';
 import AdminRoute from './components/AdminRoute';
+import CreatorRoute from './components/CreatorRoute';
 import ArtListScreen from './screens/ArtListScreen';
+import ArtCreateScreen from './screens/ArtCreateScreen';
 import ArtEditScreen from './screens/ArtEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
 import UserListScreen from './screens/UserListScreen';
@@ -126,6 +128,27 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+
+
+
+
+
+
+              <Route
+                path="/creator/art/create"
+                element={
+                  <CreatorRoute>
+                    <ArtCreateScreen />
+                  </CreatorRoute>
+                }
+              ></Route>
+
+
+
+
+
+
+
               <Route
                 path="/admin/art/:id"
                 element={

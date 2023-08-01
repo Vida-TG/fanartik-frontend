@@ -1,24 +1,12 @@
 import axios from 'axios';
 import { useContext, useEffect, useReducer, useRef, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Form from 'react-bootstrap/Form';
-import Badge from 'react-bootstrap/Badge';
-import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
-import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-import {
-  Flex,
-} from "@chakra-ui/react";
-import { toast } from 'react-toastify';
+import { Box, Flex, Badge, Card, Text, Skeleton, Image, useMediaQuery, Stack, Heading, CardBody, CardFooter, Button } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,6 +33,7 @@ const reducer = (state, action) => {
 function ArtScreen() {
   const amount = 5;
 
+  const [isNotSmallerScreen] = useMediaQuery("(min-width:800px)");
   const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
@@ -74,8 +63,8 @@ function ArtScreen() {
     const existItem = cart.cartItems.find((x) => x._id === art._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${art._id}`);
-    if (data.countInStock < quantity) {
-      window.alert('Sorry. Art is out of stock');
+    if (data.noOfPieces < quantity) {
+      window.alert('Sorry. Artwork is sold out');
       return;
     }
     ctxDispatch({
@@ -86,15 +75,66 @@ function ArtScreen() {
   };
 
 
-  return loading ? (
-    <LoadingBox />
-  ) : error ? (
-    <MessageBox variant="danger">{error}</MessageBox>
-  ) : (
-    <Flex>
-
-    </Flex>
+  return (
+    <Box>
+      <Helmet>
+        <title>{art.name}</title>
+      </Helmet>
+      loading ? (
+        <Box pt="30px"><Skeleton h='400' w='100%'/></Box>
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+      <Box pt="20px">
+        <Card
+          direction={{ base: 'column', md: 'row' }}
+          overflow='hidden'
+          bg="rgba(0,0,0, 0.1)"
+        >
+          <Image
+              src={art.image}
+              alt={art.name}
+              objectFit='cover'
+              border='2px solid rgba(0,0,0, 0.1)'
+              maxW={{ base: '100%', md: '350px' }}
+          />
+          <Stack>
+              <CardBody minH='250'>
+                <Link to={`/art/${art.slug}`}>
+                    <Heading w='100' textAlign='center' size='lg'>{art.name}</Heading>
+                </Link>
+            
+                <Text py='2'>
+                    {art.description}
+                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
+                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
+                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
+                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
+                </Text>
+              </CardBody>
       
-  );
+              <CardFooter>
+                <Flex flexDir="column" w="100%" align="center">
+                  {art.noOfPieces > 0 ? (
+                    <Box m="15px 0px"><Text display="inline">Status: </Text><Badge ml='1' fontSize='0.8em' display="inline" colorScheme='green' p="7px">Available</Badge></Box>
+                  ) : (
+                      <Box m="15px 0px"><Text display="inline">Status: </Text><Badge ml='1' fontSize='0.8em' display="inline" colorScheme='red' p="7px">Sold Out</Badge></Box>
+                  )}
+                  {art.noOfPieces > 0 && (
+                      <Button variant='solid' colorScheme='blue' onClick={() => addToCartHandler(art)}>
+                          Add to cart
+                      </Button>
+                  )}
+                  <Text color='blue.300' pl="3" fontSize='2xl'>
+                      ${art.price}
+                  </Text>
+                </Flex>
+              </CardFooter>
+          </Stack>
+      </Card>
+      </Box>
+      )
+    </Box>
+  )
 }
 export default ArtScreen;

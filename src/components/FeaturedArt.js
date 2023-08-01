@@ -16,8 +16,8 @@ function FeaturedArt(props) {
     const existItem = cartItems.find((x) => x._id === art._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${item._id}`);
-    if (data.countInStock < quantity) {
-      window.alert('Sorry. Artwork is out of stock');
+    if (data.noOfPieces < quantity) {
+      window.alert('Sorry. Artwork is sold out');
       return;
     }
     ctxDispatch({
@@ -31,12 +31,13 @@ function FeaturedArt(props) {
     <Card
       direction={{ base: 'column', sm: 'row' }}
       overflow='hidden'
-      variant='outline'
+      bg="rgba(0,0,0, 0.1)"
     >
         <Image
             src={art.image}
             alt={art.name}
             objectFit='cover'
+            border='2px solid rgba(0,0,0, 0.1)'
             maxW={{ base: '100%', sm: '200px' }}
         />
         <Stack>
@@ -46,15 +47,14 @@ function FeaturedArt(props) {
             </Link>
         
             <Text py='2'>
-                Caffè latte is a coffee beverage of Italian origin made with espresso
-                and steamed milk.
+                {art.description}
             </Text>
             </CardBody>
     
             <CardFooter>
-            {art.countInStock === 0 ? (
+            {art.noOfPieces === 0 ? (
                 <Button disabled>
-                    Out of stock
+                    Sold Out
                 </Button>
             ) : (
                 <Button variant='solid' colorScheme='blue' onClick={() => addToCartHandler(art)}>

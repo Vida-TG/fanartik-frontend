@@ -94,7 +94,7 @@ const ItemTypes = () => {
         setType3(true)
     }
   return (
-    <Box w="95%" maxW="1200px" m="10px auto" p="30px 3% 50px 3%" borderRadius="20px" bg="rgba(0,0,0, 0.1)">
+    <Box w="95%" maxW="1200px" m="10px auto" p="30px 3% 50px 3%" borderRadius="20px" bg="rgba(0,0,0, 0.03)">
         <Flex m="10px auto" justify="center">
             <Button m="0px 10px" onClick={type1Clicked} background={type1 ? 'var(--chakra-colors-chakra-body-bg)' : 'none'}>Painting</Button>
             <Button m="0px 10px" onClick={type2Clicked} background={type2 ? 'var(--chakra-colors-chakra-body-bg)' : 'none'}>Digital</Button>
