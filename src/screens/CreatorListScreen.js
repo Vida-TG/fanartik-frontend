@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ButtonGroup, Flex, Image } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
-import { Flex } from '@chakra-ui/react';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
@@ -38,7 +38,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-export default function UserListScreen() {
+export default function CreatorListScreen() {
   const navigate = useNavigate();
   const [{ loading, error, users, loadingDelete, successDelete }, dispatch] =
     useReducer(reducer, {
@@ -53,8 +53,8 @@ export default function UserListScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`https://fanartiks.onrender.com/api/users`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
+        const { data } = await axios.get(`https://fanartiks.onrender.com/api/users/creators`, {
+          headers: { Authorization: userInfo ? `Bearer ${userInfo.token}` : null },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
@@ -71,14 +71,15 @@ export default function UserListScreen() {
     }
   }, [userInfo, successDelete]);
 
+
   const deleteHandler = async (user) => {
-    if (window.confirm('Are you sure to delete?')) {
+    if (window.confirm('Are you sure to remove creator?')) {
       try {
         dispatch({ type: 'DELETE_REQUEST' });
-        await axios.delete(`https://fanartiks.onrender.com/api/users/${user._id}`, {
+        await axios.put(`https://fanartiks.onrender.com/api/users/creators/${user._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
-        toast.success('user deleted successfully');
+        toast.success('Creator removed successfully');
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (error) {
         toast.error(getError(error));
@@ -91,9 +92,9 @@ export default function UserListScreen() {
   return (
     <div>
       <Helmet>
-        <title>Users</title>
+        <title>Creators</title>
       </Helmet>
-      <h1>Users</h1>
+      <h1>Creators</h1>
 
       {loadingDelete && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
       {loading ? (
@@ -104,39 +105,51 @@ export default function UserListScreen() {
         <table className="table">
           <thead>
             <tr>
-              <th>ID</th>
+              <th></th>
               <th>NAME</th>
-              <th>EMAIL</th>
-              <th>IS CREATOR</th>
-              <th>IS ADMIN</th>
+              <th>USERNAME</th>
               <th>ACTIONS</th>
+              { userInfo && userInfo.isAdmin &&
+                <th>ADMIN ACTIONS</th>
+              }
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.isCreator ? 'YES' : 'NO'}</td>
-                <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                 <td>
-                  <Button
-                    type="button"
-                    variant="light"
-                    onClick={() => navigate(`/admin/user/${user._id}`)}
-                  >
-                    Edit
-                  </Button>
-                  &nbsp;
-                  <Button
-                    type="button"
-                    variant="light"
-                    onClick={() => deleteHandler(user)}
-                  >
-                    Delete
-                  </Button>
+                  <Image src='#' />
                 </td>
+                <td>{user.name}</td>
+                <td>{user.username}</td>
+                <td>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => navigate(`/book-creator/${user._id}`)}
+                    >
+                      Book Artist
+                    </Button>
+                </td>
+                { userInfo && userInfo.isAdmin &&
+                  <td>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => navigate(`/admin/user/${user._id}`)}
+                    >
+                      Edit
+                    </Button>
+                    &nbsp;
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={() => deleteHandler(user)}
+                    >
+                      Remove
+                    </Button>
+                  </td>
+                }
               </tr>
             ))}
           </tbody>

@@ -25,6 +25,7 @@ export default function ProfileScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const [name, setName] = useState(userInfo.name);
+  const [username, setUsername] = useState(userInfo.username);
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -40,6 +41,7 @@ export default function ProfileScreen() {
         'https://fanartiks.onrender.com/api/users/profile',
         {
           name,
+          username,
           email,
           password,
         },
@@ -73,6 +75,14 @@ export default function ProfileScreen() {
           <Form.Control
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
         </Form.Group>

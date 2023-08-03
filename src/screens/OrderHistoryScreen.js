@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Flex } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
@@ -57,7 +58,7 @@ export default function OrderHistoryScreen() {
 
       <h1>Order History</h1>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

@@ -3,6 +3,7 @@ import Chart from 'react-google-charts';
 import axios from 'axios';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import { Flex } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Row from 'react-bootstrap/Row';
@@ -54,7 +55,7 @@ export default function DashboardScreen() {
     <div>
       <h1>Dashboard</h1>
       {loading ? (
-        <LoadingBox />
+        <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

@@ -4,8 +4,8 @@ import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import LoadingBox from '../components/LoadingBox';
 import { Flex } from '@chakra-ui/react';
+import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
@@ -17,11 +17,21 @@ const reducer = (state, action) => {
     case 'FETCH_SUCCESS':
       return {
         ...state,
-        users: action.payload,
+        requests: action.payload,
         loading: false,
       };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
+    case 'APPROVE_REQUEST':
+        return { ...state, loadingApprove: true, successDelete: false };
+    case 'APPROVE_SUCCESS':
+      return {
+        ...state,
+        loadingApprove: false,
+        successApprove: true,
+      };
+    case 'APPROVE_FAIL':
+      return { ...state, loadingApprove: false };
     case 'DELETE_REQUEST':
       return { ...state, loadingDelete: true, successDelete: false };
     case 'DELETE_SUCCESS':
@@ -32,15 +42,17 @@ const reducer = (state, action) => {
       };
     case 'DELETE_FAIL':
       return { ...state, loadingDelete: false };
+    case 'APPROVE_RESET':
+        return { ...state, loadingApprove: false, successApprove: false };
     case 'DELETE_RESET':
       return { ...state, loadingDelete: false, successDelete: false };
     default:
       return state;
   }
 };
-export default function UserListScreen() {
+export default function RequestListScreen() {
   const navigate = useNavigate();
-  const [{ loading, error, users, loadingDelete, successDelete }, dispatch] =
+  const [{ loading, error, requests, loadingApprove, successApprove, loadingDelete, successDelete }, dispatch] =
     useReducer(reducer, {
       loading: true,
       error: '',
@@ -53,7 +65,7 @@ export default function UserListScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`https://fanartiks.onrender.com/api/users`, {
+        const { data } = await axios.get(`https://fanartiks.onrender.com/api/requests`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
@@ -66,19 +78,42 @@ export default function UserListScreen() {
     };
     if (successDelete) {
       dispatch({ type: 'DELETE_RESET' });
+    } else if (successApprove) {
+        dispatch({ type: 'APPROVE_RESET' });
     } else {
       fetchData();
     }
-  }, [userInfo, successDelete]);
+  }, [userInfo, successApprove, successDelete]);
 
-  const deleteHandler = async (user) => {
+  
+  const approveHandler = async (request) => {
+    if (window.confirm('Are you sure to approve?')) {
+      try {
+        dispatch({ type: 'APPROVE_REQUEST' });
+        await axios.post(`https://fanartiks.onrender.com/api/requests/approve/${request._id}`, {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        toast.success('Creator request approved');
+        dispatch({ type: 'APPROVE_SUCCESS' });
+      } catch (error) {
+        toast.error(getError(error));
+        dispatch({
+          type: 'APPROVE_FAIL',
+        });
+      }
+    }
+  };
+
+
+  
+  const deleteHandler = async (request) => {
     if (window.confirm('Are you sure to delete?')) {
       try {
         dispatch({ type: 'DELETE_REQUEST' });
-        await axios.delete(`https://fanartiks.onrender.com/api/users/${user._id}`, {
+        await axios.delete(`https://fanartiks.onrender.com/api/requests/${request._id}`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
-        toast.success('user deleted successfully');
+        toast.success('request deleted successfully');
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (error) {
         toast.error(getError(error));
@@ -91,11 +126,12 @@ export default function UserListScreen() {
   return (
     <div>
       <Helmet>
-        <title>Users</title>
+        <title>Creator Requests</title>
       </Helmet>
-      <h1>Users</h1>
+      <h1>Creator Requests</h1>
 
       {loadingDelete && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
+      {loadingApprove && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
       {loading ? (
         <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
       ) : error ? (
@@ -107,32 +143,28 @@ export default function UserListScreen() {
               <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
-              <th>IS CREATOR</th>
-              <th>IS ADMIN</th>
               <th>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.isCreator ? 'YES' : 'NO'}</td>
-                <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+            {requests.map((request) => (
+              <tr key={request._id}>
+                <td>{request.user._id}</td>
+                <td>{request.user.name}</td>
+                <td>{request.user.email}</td>
                 <td>
                   <Button
                     type="button"
                     variant="light"
-                    onClick={() => navigate(`/admin/user/${user._id}`)}
+                    onClick={() => approveHandler(request)}
                   >
-                    Edit
+                    Approve
                   </Button>
                   &nbsp;
                   <Button
                     type="button"
                     variant="light"
-                    onClick={() => deleteHandler(user)}
+                    onClick={() => deleteHandler(request)}
                   >
                     Delete
                   </Button>

@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Flex } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
@@ -97,7 +98,7 @@ export default function UserEditScreen() {
       <h1>Edit User {userId}</h1>
 
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -133,7 +134,7 @@ export default function UserEditScreen() {
             <Button disabled={loadingUpdate} type="submit">
               Update
             </Button>
-            {loadingUpdate && <LoadingBox></LoadingBox>}
+            {loadingUpdate && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
           </div>
         </Form>
       )}

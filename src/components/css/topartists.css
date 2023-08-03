@@ -22,11 +22,11 @@
     width: 100%;
 }
 .small-screen-card {
-    height: 50px;
+    height: 60px;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid #ccc;
+    background-color: rgba(0,0,0, 0.1);
 }
 .small-screen-card-image {
     height: 36px;
@@ -34,8 +34,10 @@
     border-radius: 18px;
 }
 .small-screen-card-sales {
+    height: 100%;
     flex-direction: column;
     font-size: x-small;
     text-align: center;
+    padding-top: 20px;
     text-transform: uppercase;
 }

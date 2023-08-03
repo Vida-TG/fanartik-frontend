@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
 import { Store } from '../Store';
+import { Flex } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
@@ -133,11 +134,11 @@ export default function ArtListScreen() {
         </Col>
       </Row>
 
-      {loadingCreate && <LoadingBox></LoadingBox>}
-      {loadingDelete && <LoadingBox></LoadingBox>}
+      {loadingCreate && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
+      {loadingDelete && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
 
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (

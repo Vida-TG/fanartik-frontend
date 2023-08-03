@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
+import { Flex } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
@@ -188,7 +189,7 @@ export default function OrderScreen() {
   }
 
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
@@ -305,7 +306,7 @@ export default function OrderScreen() {
                 {!order.isPaid && (
                   <ListGroup.Item>
                     {isPending ? (
-                      <LoadingBox />
+                      <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
                     ) : (
                       <div>
                         <PayPalButtons
@@ -315,12 +316,12 @@ export default function OrderScreen() {
                         ></PayPalButtons>
                       </div>
                     )}
-                    {loadingPay && <LoadingBox></LoadingBox>}
+                    {loadingPay && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
                   </ListGroup.Item>
                 )}
                 {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                   <ListGroup.Item>
-                    {loadingDeliver && <LoadingBox></LoadingBox>}
+                    {loadingDeliver && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
                     <div className="d-grid">
                       <Button type="button" onClick={deliverOrderHandler}>
                         Deliver Order

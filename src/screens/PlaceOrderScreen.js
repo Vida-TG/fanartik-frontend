@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { getError } from '../utils';
 import { Store } from '../Store';
 import CheckoutSteps from '../components/CheckoutSteps';
+import { Flex } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 
 const reducer = (state, action) => {
@@ -183,7 +184,7 @@ export default function PlaceOrderScreen() {
                       Place Order
                     </Button>
                   </div>
-                  {loading && <LoadingBox></LoadingBox>}
+                  {loading && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
                 </ListGroup.Item>
               </ListGroup>
             </Card.Body>

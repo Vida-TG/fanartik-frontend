@@ -22,6 +22,10 @@ import ArtListScreen from './screens/ArtListScreen';
 import ArtCreateScreen from './screens/ArtCreateScreen';
 import ArtEditScreen from './screens/ArtEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import CreatorListScreen from './screens/CreatorListScreen'
+import BookCreatorScreen from './screens/BookCreatorScreen';
+import BookingsListScreen from './screens/BookingsListScreen';
+import RequestListScreen from './screens/RequestListScreen';
 import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
@@ -142,7 +146,36 @@ function App() {
                   </CreatorRoute>
                 }
               ></Route>
-
+              <Route
+                path="/creators"
+                element={
+                  <CreatorListScreen />
+                }
+              ></Route>
+              <Route
+                path="/admin/requests"
+                element={
+                  <AdminRoute>
+                    <RequestListScreen />
+                  </AdminRoute>
+                }
+              ></Route>
+              <Route
+                path="/book-creator/:id"
+                element={
+                  <CreatorRoute>
+                    <BookCreatorScreen />
+                  </CreatorRoute>
+                }
+              ></Route>
+              <Route
+                path="/creator/bookings"
+                element={
+                  <CreatorRoute>
+                    <BookingsListScreen />
+                  </CreatorRoute>
+                }
+              ></Route>
 
 
 

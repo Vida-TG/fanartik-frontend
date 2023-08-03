@@ -6,6 +6,7 @@ import { getError } from '../utils';
 import { Helmet } from 'react-helmet-async';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Flex } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
@@ -161,7 +162,7 @@ export default function SearchScreen() {
         </Col>
         <Col md={9}>
           {loading ? (
-            <LoadingBox></LoadingBox>
+            <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
           ) : error ? (
             <MessageBox variant="danger">{error}</MessageBox>
           ) : (

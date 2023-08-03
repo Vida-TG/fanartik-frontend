@@ -9,6 +9,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Form from 'react-bootstrap/Form';
 import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
+import { Flex } from '@chakra-ui/react';
 import MessageBox from '../components/MessageBox';
 import Button from 'react-bootstrap/Button';
 
@@ -158,7 +159,7 @@ export default function ArtEditScreen() {
       <h1>Edit Art {artId}</h1>
 
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
@@ -198,7 +199,7 @@ export default function ArtEditScreen() {
           <Form.Group className="mb-3" controlId="imageFile">
             <Form.Label>Upload Image</Form.Label>
             <Form.Control type="file" onChange={uploadFileHandler} />
-            {loadingUpload && <LoadingBox></LoadingBox>}
+            {loadingUpload && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="additionalImage">
@@ -221,7 +222,7 @@ export default function ArtEditScreen() {
               type="file"
               onChange={(e) => uploadFileHandler(e, true)}
             />
-            {loadingUpload && <LoadingBox></LoadingBox>}
+            {loadingUpload && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="category">
@@ -252,7 +253,7 @@ export default function ArtEditScreen() {
             <Button disabled={loadingUpdate} type="submit">
               Update
             </Button>
-            {loadingUpdate && <LoadingBox></LoadingBox>}
+            {loadingUpdate && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
           </div>
         </Form>
       )}

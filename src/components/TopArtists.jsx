@@ -15,8 +15,8 @@ const TopArtists = () => {
                 
                 <Flex className={ isNotSmallerScreen ? 'large-screen-card' : 'small-screen-card' }>
                     <Image className={ isNotSmallerScreen ? 'large-screen-card-image' : 'small-screen-card-image' } src={logo} />
-                    <Text fontSize="lg">Vincent</Text>
-                    <Text fontSize="sm">@vincent_dray</Text>
+                    <Text fontSize="lg" marginY="auto">Vincent</Text>
+                    <Text fontSize="sm" marginY="auto">@vincent_dray</Text>
                     <Flex className={ isNotSmallerScreen ? 'large-screen-card-sales' : 'small-screen-card-sales' } justify="space-around">
                         <Text>Total Sales:</Text>
                         <Text>$5000</Text>
@@ -24,8 +24,8 @@ const TopArtists = () => {
                 </Flex>
                 <Flex className={ isNotSmallerScreen ? 'large-screen-card' : 'small-screen-card' }>
                     <Image className={ isNotSmallerScreen ? 'large-screen-card-image' : 'small-screen-card-image' } src={logo} />
-                    <Text fontSize="lg">Vincent</Text>
-                    <Text fontSize="sm">@vincent_dray</Text>
+                    <Text fontSize="lg" marginY="auto">Vincent</Text>
+                    <Text fontSize="sm" marginY="auto">@vincent_dray</Text>
                     <Flex className={ isNotSmallerScreen ? 'large-screen-card-sales' : 'small-screen-card-sales' } justify="space-around">
                         <Text>Total Sales:</Text>
                         <Text>$5000</Text>
@@ -33,8 +33,8 @@ const TopArtists = () => {
                 </Flex>
                 <Flex className={ isNotSmallerScreen ? 'large-screen-card' : 'small-screen-card' }>
                     <Image className={ isNotSmallerScreen ? 'large-screen-card-image' : 'small-screen-card-image' } src={logo} />
-                    <Text fontSize="lg">Vincent</Text>
-                    <Text fontSize="sm">@vincent_dray</Text>
+                    <Text fontSize="lg" marginY="auto">Vincent</Text>
+                    <Text fontSize="sm" marginY="auto">@vincent_dray</Text>
                     <Flex className={ isNotSmallerScreen ? 'large-screen-card-sales' : 'small-screen-card-sales' } justify="space-around">
                         <Text>Total Sales:</Text>
                         <Text>$5000</Text>
@@ -42,8 +42,8 @@ const TopArtists = () => {
                 </Flex>
                 <Flex className={ isNotSmallerScreen ? 'large-screen-card' : 'small-screen-card' }>
                     <Image className={ isNotSmallerScreen ? 'large-screen-card-image' : 'small-screen-card-image' } src={logo} />
-                    <Text fontSize="lg">Vincent</Text>
-                    <Text fontSize="sm">@vincent_dray</Text>
+                    <Text fontSize="lg" marginY="auto">Vincent</Text>
+                    <Text fontSize="sm" marginY="auto">@vincent_dray</Text>
                     <Flex className={ isNotSmallerScreen ? 'large-screen-card-sales' : 'small-screen-card-sales' } justify="space-around">
                         <Text>Total Sales:</Text>
                         <Text>$5000</Text>
@@ -51,8 +51,8 @@ const TopArtists = () => {
                 </Flex>
                 <Flex className={ isNotSmallerScreen ? 'large-screen-card' : 'small-screen-card' }>
                     <Image className={ isNotSmallerScreen ? 'large-screen-card-image' : 'small-screen-card-image' } src={logo} />
-                    <Text fontSize="lg">Vincent</Text>
-                    <Text fontSize="sm">@vincent_dray</Text>
+                    <Text fontSize="lg" marginY="auto">Vincent</Text>
+                    <Text fontSize="sm" marginY="auto">@vincent_dray</Text>
                     <Flex className={ isNotSmallerScreen ? 'large-screen-card-sales' : 'small-screen-card-sales' } justify="space-around">
                         <Text>Total Sales:</Text>
                         <Text>$5000</Text>
