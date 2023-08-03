@@ -1,5 +1,5 @@
 import { Box, Flex, Image, SimpleGrid, Text, useMediaQuery } from '@chakra-ui/react'
-import logo from './assets/images/topaz.png'
+import logo from './assets/images/default.png'
 import React from 'react'
 
 import './css/topartists.css'

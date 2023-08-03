@@ -60,7 +60,7 @@ export default function ArtCreateScreen() {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
       await axios.post(
-        `/api/arts`,
+        `https://fanartiks.onrender.com/api/arts`,
         {
           name,
           price,

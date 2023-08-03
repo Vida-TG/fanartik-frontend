@@ -68,7 +68,7 @@ export default function ArtEditScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await axios.get(`/api/arts/${artId}`);
+        const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${artId}`);
         setName(data.name);
         setSlug(data.slug);
         setPrice(data.price);

@@ -76,9 +76,14 @@ export default function CreatorListScreen() {
     if (window.confirm('Are you sure to remove creator?')) {
       try {
         dispatch({ type: 'DELETE_REQUEST' });
-        await axios.put(`https://fanartiks.onrender.com/api/users/creators/${user._id}`, {
+        await axios.put(`https://fanartiks.onrender.com/api/users/creators/${user._id}`, {}, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
+
+        const retrievedUser = localStorage.getItem("userInfo");
+        const parsedUser = JSON.parse(retrievedUser);
+        parsedUser.isCreator = false;
+        localStorage.setItem("userInfo", JSON.stringify(parsedUser));
         toast.success('Creator removed successfully');
         dispatch({ type: 'DELETE_SUCCESS' });
       } catch (error) {
@@ -110,7 +115,7 @@ export default function CreatorListScreen() {
               <th>USERNAME</th>
               <th>ACTIONS</th>
               { userInfo && userInfo.isAdmin &&
-                <th>ADMIN ACTIONS</th>
+                <th>ADMIN</th>
               }
             </tr>
           </thead>

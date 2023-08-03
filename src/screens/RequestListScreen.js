@@ -90,7 +90,7 @@ export default function RequestListScreen() {
     if (window.confirm('Are you sure to approve?')) {
       try {
         dispatch({ type: 'APPROVE_REQUEST' });
-        await axios.post(`https://fanartiks.onrender.com/api/requests/approve/${request._id}`, {
+        await axios.post(`https://fanartiks.onrender.com/api/requests/approve/${request._id}`, {}, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         toast.success('Creator request approved');

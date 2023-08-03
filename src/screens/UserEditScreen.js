@@ -45,6 +45,7 @@ export default function UserEditScreen() {
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -56,6 +57,7 @@ export default function UserEditScreen() {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
         setName(data.name);
+        setUsername(data.username)
         setEmail(data.email);
         setIsAdmin(data.isAdmin);
         dispatch({ type: 'FETCH_SUCCESS' });
@@ -75,7 +77,7 @@ export default function UserEditScreen() {
       dispatch({ type: 'UPDATE_REQUEST' });
       await axios.put(
         `https://fanartiks.onrender.com/api/users/${userId}`,
-        { _id: userId, name, email, isAdmin },
+        { _id: userId, name, username, email, isAdmin },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -108,6 +110,14 @@ export default function UserEditScreen() {
             <Form.Control
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="name">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </Form.Group>

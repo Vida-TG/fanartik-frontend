@@ -163,9 +163,7 @@ function App() {
               <Route
                 path="/book-creator/:id"
                 element={
-                  <CreatorRoute>
-                    <BookCreatorScreen />
-                  </CreatorRoute>
+                  <BookCreatorScreen />
                 }
               ></Route>
               <Route

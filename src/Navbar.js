@@ -41,7 +41,7 @@ const Navbar = () => {
             const response = await axios.post(`https://fanartiks.onrender.com/api/requests`, {}, {
                 headers: { authorization: `Bearer ${userInfo.token}` },
             });
-            toast.success(response.message);
+            toast.success(response.data.message);
             setLoading(false);
         } catch (err) {
             toast.error(getError(err));

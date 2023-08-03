@@ -33,7 +33,7 @@ const reducer = (state, action) => {
 
 export default function BookCreatorScreen() {
   const [{ loading, error, loadingCreate }, dispatch] = useReducer(reducer, {
-    loading: true,
+    loading: false,
     error: '',
   });
 
@@ -51,8 +51,8 @@ export default function BookCreatorScreen() {
     e.preventDefault();
     try {
       dispatch({ type: 'CREATE_REQUEST' });
-      await axios.put(
-        `https://fanartiks.onrender.com/api/creator/${userId}`,
+      await axios.post(
+        `https://fanartiks.onrender.com/api/bookings/creator/${userId}`,
         { _id: userId, description, price },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -91,7 +91,7 @@ export default function BookCreatorScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="email">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>Price ($)</Form.Label>
             <Form.Control
               value={price}
               type="number"
