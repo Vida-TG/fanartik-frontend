@@ -107,6 +107,7 @@ export default function CreatorListScreen() {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
+        <div className='table-wrap'>
         <table className="table">
           <thead>
             <tr>
@@ -159,6 +160,7 @@ export default function CreatorListScreen() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );

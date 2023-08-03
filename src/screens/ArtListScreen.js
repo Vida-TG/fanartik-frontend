@@ -143,6 +143,7 @@ export default function ArtListScreen() {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
+        <div className='table-wrap'>
           <table className="table">
             <thead>
               <tr>
@@ -181,6 +182,7 @@ export default function ArtListScreen() {
               ))}
             </tbody>
           </table>
+          </div>
           <div>
             {[...Array(pages).keys()].map((x) => (
               <Link

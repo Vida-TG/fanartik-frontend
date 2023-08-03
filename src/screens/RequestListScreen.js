@@ -68,6 +68,7 @@ export default function RequestListScreen() {
         const { data } = await axios.get(`https://fanartiks.onrender.com/api/requests`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
+        console.log(data)
         dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (err) {
         dispatch({
@@ -137,6 +138,7 @@ export default function RequestListScreen() {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
+        <div className='table-wrap'>
         <table className="table">
           <thead>
             <tr>
@@ -173,6 +175,7 @@ export default function RequestListScreen() {
             ))}
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );

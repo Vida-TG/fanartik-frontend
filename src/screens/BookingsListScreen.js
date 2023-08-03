@@ -50,6 +50,7 @@ export default function RequestListScreen() {
       {loading ? (
         <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>
       ) : (
+        <div className='table-wrap'>
         <table className="table">
           <thead>
             <tr>
@@ -70,6 +71,7 @@ export default function RequestListScreen() {
             ))}
           </tbody>
         </table>
+      </div>
       )}
     </div>
   );
