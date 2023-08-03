@@ -14,7 +14,7 @@ const TopArtists = () => {
             <SimpleGrid p="10px" gap={5} minChildWidth={ isNotSmallerScreen ? '180px' : '90%' } m="auto" maxW="1400px">
                 
                 <Flex className={ isNotSmallerScreen ? 'large-screen-card' : 'small-screen-card' }>
-                    <Image className={ isNotSmallerScreen ? 'large-screen-card-image' : 'small-screen-card-image' } src={logo} />
+                    <Image className={ isNotSmallerScreen ? 'large-screen-card-image' : 'small-screen-card-image' } src="https://raw.githubusercontent.com/Vida-TG/fanartik-frontend/main/default.png" />
                     <Text fontSize="lg" marginY="auto">Vincent</Text>
                     <Text fontSize="sm" marginY="auto">@vincent_dray</Text>
                     <Flex className={ isNotSmallerScreen ? 'large-screen-card-sales' : 'small-screen-card-sales' } justify="space-around">
