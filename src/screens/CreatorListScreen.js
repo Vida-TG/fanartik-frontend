@@ -109,17 +109,7 @@ export default function CreatorListScreen() {
       ) : (
         <div className='table-wrap'>
         <table className="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>NAME</th>
-              <th>USERNAME</th>
-              <th>ACTIONS</th>
-              { userInfo && userInfo.isAdmin &&
-                <th>ADMIN</th>
-              }
-            </tr>
-          </thead>
+          
           <tbody>
             {users.map((user) => (
               <tr key={user._id}>
@@ -127,7 +117,7 @@ export default function CreatorListScreen() {
                   <Image src='#' />
                 </td>
                 <td>{user.name}</td>
-                <td>{user.username}</td>
+                <td>@{user.username}</td>
                 <td>
                     <Button
                       type="button"
