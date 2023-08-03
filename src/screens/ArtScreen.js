@@ -80,7 +80,7 @@ function ArtScreen() {
       <Helmet>
         <title>{art.name}</title>
       </Helmet>
-      loading ? (
+      {loading ? (
         <Box pt="30px"><Skeleton h='400' w='100%'/></Box>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
@@ -133,7 +133,7 @@ function ArtScreen() {
           </Stack>
       </Card>
       </Box>
-      )
+      )}
     </Box>
   )
 }
