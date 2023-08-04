@@ -22,6 +22,7 @@ export default function RequestListScreen() {
         const { data } = await axios.get(`https://fanartiks.onrender.com/api/bookings`, {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         });
+        console.log(data.bookings)
         if(!data.bookings) toast.error(getError("You have no booking yet"));
         else setBookings(data.bookings)
         setLoading(false)
@@ -63,10 +64,14 @@ export default function RequestListScreen() {
           <tbody>
             {bookings.map((booking) => (
               <tr key={booking._id}>
+              {booking.user && (
+                <>
                 <td>{booking.user.name}</td>
                 <td>{booking.user.email}</td>
                 <td>{booking.price}</td>
                 <td>{booking.description}</td>
+                </>
+              )}
               </tr>
             ))}
           </tbody>

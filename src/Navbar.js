@@ -67,7 +67,7 @@ const Navbar = () => {
                 <MenuButton className="spacing">{userInfo.name}</MenuButton>
                 <MenuList>
                     <Link to="/profile">
-                        <MenuItem>User Profile</MenuItem>
+                        <MenuItem>Edit Profile</MenuItem>
                     </Link>
                     <Link to="/orderhistory">
                         <MenuItem>Order History</MenuItem>
@@ -97,6 +97,9 @@ const Navbar = () => {
                 <MenuList>
                     <Link to="/creator/art/create">
                         <MenuItem>Create Artwork</MenuItem>
+                    </Link>
+                    <Link to={`/creator/profile/${userInfo._id}`}>
+                        <MenuItem>My portfolio</MenuItem>
                     </Link>
                     <Link to="/creator/bookings">
                         <MenuItem>Get bookings</MenuItem>
@@ -177,6 +180,9 @@ const Navbar = () => {
                                 <Link to="/creator/art/create">
                                     <MenuItem>Create Artwork</MenuItem>
                                 </Link>
+                                <Link to={`/creator/profile/${userInfo._id}`}>
+                                    <MenuItem>My portfolio</MenuItem>
+                                </Link>
                                 <Link to="/creator/bookings">
                                     <MenuItem>Get bookings</MenuItem>
                                 </Link>
@@ -212,7 +218,7 @@ const Navbar = () => {
                         <Link className="mobile-link" to="/creators">Artists</Link>
                         {userInfo ? (
                             <>
-                                <Link className="mobile-link" to="/profile">Profile</Link>
+                                <Link className="mobile-link" to="/profile">Edit Profile</Link>
                                 <Link className="mobile-link" to="/orderhistory">Order History</Link>
                                 { loading && !userInfo.isCreator && (
                                     <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>

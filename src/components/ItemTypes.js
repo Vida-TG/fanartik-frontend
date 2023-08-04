@@ -21,7 +21,7 @@ const reducer = (state, action) => {
         case 'FETCH_SUCCESS':
             return { ...state, arts: action.payload, loading: false, error: '' };
         case 'FETCH_FAIL':
-            return { ...state, loading: false, error: action.payload, arts: [] };
+            return { ...state, loading: false, error: action.payload, arts: {} };
         default:
             return state;
     }
@@ -39,15 +39,13 @@ const ItemTypes = () => {
     let slidesNum;
     if (width <= 800) {
         slidesNum = 1
-    } else if (width > 800 && width <= 1000) {
+    } else {
         slidesNum = 2
-    } else if (width > 1000) {
-        slidesNum = 3
     }
     
 
     const [{ loading, error, arts }, dispatch] = useReducer(reducer, {
-        arts: [],
+        arts: {},
         error: '',
         loading: true,
     })
@@ -56,7 +54,7 @@ const ItemTypes = () => {
         const fetchData = async () => {
             dispatch({ type: 'FETCH_REQUEST'});
             try {
-                const result = await axios.get('https://fanartiks.onrender.com/api/arts');
+                const result = await axios.get('http://localhost:4000/api/arts/get-by-category');
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -67,8 +65,6 @@ const ItemTypes = () => {
     }, [])
 
 
-    const { state, dispatch: ctxDispatch } = useContext(Store);
-        
 
     const settings = {
         dots: true,
@@ -94,7 +90,7 @@ const ItemTypes = () => {
         setType3(true)
     }
   return (
-    <Box w="95%" maxW="1200px" m="10px auto" p="30px 3% 50px 3%" borderRadius="20px" bg="rgba(0,0,0, 0.03)">
+    <Box w="95%" maxW="900px" m="10px auto" p="30px 3% 50px 3%" borderRadius="20px" bg="rgba(0,0,0, 0.03)">
         <Flex m="10px auto" justify="center">
             <Button m="0px 10px" onClick={type1Clicked} background={type1 ? 'var(--chakra-colors-chakra-body-bg)' : 'none'}>Painting</Button>
             <Button m="0px 10px" onClick={type2Clicked} background={type2 ? 'var(--chakra-colors-chakra-body-bg)' : 'none'}>Digital</Button>
@@ -109,7 +105,7 @@ const ItemTypes = () => {
                 ) : error ? (
                     <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
                 ) : (
-                    arts.map((art) => (
+                    arts.painting.map((art) => (
                         <Box key={art.slug} p="0px 2%" w="96%">
                           <Art art={art}></Art>
                         </Box>
@@ -127,7 +123,7 @@ const ItemTypes = () => {
                 ) : error ? (
                     <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
                 ) : (
-                    arts.map((art) => (
+                    arts.digital.map((art) => (
                         <Box key={art.slug} p="0px 2%" w="96%">
                           <Art art={art}></Art>
                         </Box>
@@ -145,7 +141,7 @@ const ItemTypes = () => {
                 ) : error ? (
                     <Flex align="center" justify="center"><MessageBox variant="danger">{error}</MessageBox></Flex>
                 ) : (
-                    arts.map((art) => (
+                    arts.craft.map((art) => (
                         <Box key={art.slug} p="0px 2%" w="96%">
                           <Art art={art}></Art>
                         </Box>

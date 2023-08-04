@@ -165,7 +165,7 @@ export default function ArtListScreen() {
                     <Button
                       type="button"
                       variant="light"
-                      onClick={() => navigate(`/admin/art/${art._id}`)}
+                      onClick={() => navigate(`/creator/art/${art._id}`)}
                     >
                       Edit
                     </Button>

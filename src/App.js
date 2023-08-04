@@ -3,6 +3,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HomeScreen from './screens/HomeScreen';
 import ArtScreen from './screens/ArtScreen';
+import CreatorFullScreen from './screens/CreatorFullScreen';
 import Container from 'react-bootstrap/Container';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
@@ -137,7 +138,12 @@ function App() {
 
 
 
-
+              <Route
+                path="/creator/profile/:id"
+                element={
+                  <CreatorFullScreen />
+                }
+              ></Route>
               <Route
                 path="/creator/art/create"
                 element={
@@ -163,7 +169,9 @@ function App() {
               <Route
                 path="/book-creator/:id"
                 element={
-                  <BookCreatorScreen />
+                  <ProtectedRoute>
+                    <BookCreatorScreen />
+                  </ProtectedRoute>
                 }
               ></Route>
               <Route
@@ -174,20 +182,19 @@ function App() {
                   </CreatorRoute>
                 }
               ></Route>
-
-
-
-
-
-
               <Route
-                path="/admin/art/:id"
+                path="/creator/art/:id"
                 element={
-                  <AdminRoute>
+                  <CreatorRoute>
                     <ArtEditScreen />
-                  </AdminRoute>
+                  </CreatorRoute>
                 }
               ></Route>
+
+
+
+
+              
               <Route
                 path="/admin/user/:id"
                 element={

@@ -6,7 +6,7 @@ import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
 import { Store } from '../Store';
 
-import { Box, Flex, Badge, Card, Text, Skeleton, Image, useMediaQuery, Stack, Heading, CardBody, CardFooter, Button } from '@chakra-ui/react';
+import { Box, Flex, Badge, Card, Text, Skeleton, Image, useMediaQuery, Stack, Heading, CardBody, CardFooter, Button, Spacer } from '@chakra-ui/react';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -86,6 +86,15 @@ function ArtScreen() {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
       <Box pt="20px">
+        {
+          userInfo._id === art.creator &&
+          <Flex w="100%" mb="20px">
+            <Spacer/>
+            <Button variant='light' colorScheme='yellow' onClick={() => navigate(`/creator/art/${art._id}`)}>
+              Edit
+            </Button>
+          </Flex>
+        }
         <Card
           direction={{ base: 'column', md: 'row' }}
           overflow='hidden'
@@ -106,10 +115,6 @@ function ArtScreen() {
             
                 <Text py='2'>
                     {art.description}
-                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
-                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
-                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
-                      lorem rrrrrrr rrrrrrrrrrrrrr rrrrr rrrrr rrr rr rrrr rrrrrrr rrrrrrrrrrrr rrrrrrr rrr rrrr rr ffff ff ffff ffff
                 </Text>
               </CardBody>
       

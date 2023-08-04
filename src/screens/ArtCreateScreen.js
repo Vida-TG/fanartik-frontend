@@ -54,7 +54,7 @@ export default function ArtCreateScreen() {
       formData.append('noOfPieces', noOfPieces);
 
       await axios.post(
-        `https://fanartiks.onrender.com/api/arts`,
+        `http://localhost:4000/api/arts`,
         formData,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -88,9 +88,10 @@ export default function ArtCreateScreen() {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>Price ($)</Form.Label>
             <Form.Control
               value={price}
+              type='number'
               onChange={(e) => setPrice(e.target.value)}
               required
             />
@@ -104,15 +105,22 @@ export default function ArtCreateScreen() {
           <Form.Group className="mb-3" controlId="category">
             <Form.Label>Category</Form.Label>
             <Form.Control
+              as="select"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
-            />
+            >
+              <option value="">Select Category</option>
+              <option value="painting">Painting</option>
+              <option value="digital">Digital</option>
+              <option value="craft">Craft</option>
+            </Form.Control>
           </Form.Group>
           <Form.Group className="mb-3" controlId="noOfPieces">
             <Form.Label>Number of artworks</Form.Label>
             <Form.Control
               value={noOfPieces}
+              type="number"
               onChange={(e) => setnoOfPieces(e.target.value)}
               required
             />

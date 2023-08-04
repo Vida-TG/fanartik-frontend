@@ -27,24 +27,13 @@ const reducer = (state, action) => {
       return { ...state, loadingUpdate: false };
     case 'UPDATE_FAIL':
       return { ...state, loadingUpdate: false };
-    case 'UPLOAD_REQUEST':
-      return { ...state, loadingUpload: true, errorUpload: '' };
-    case 'UPLOAD_SUCCESS':
-      return {
-        ...state,
-        loadingUpload: false,
-        errorUpload: '',
-      };
-    case 'UPLOAD_FAIL':
-      return { ...state, loadingUpload: false, errorUpload: action.payload };
-
     default:
       return state;
   }
 };
 export default function ArtEditScreen() {
   const navigate = useNavigate();
-  const params = useParams(); // /art/:id
+  const params = useParams();
   const { id: artId } = params;
 
   const { state } = useContext(Store);
@@ -56,10 +45,8 @@ export default function ArtEditScreen() {
     });
 
   const [name, setName] = useState('');
-  const [slug, setSlug] = useState('');
   const [price, setPrice] = useState('');
   const [image, setImage] = useState('');
-  const [images, setImages] = useState([]);
   const [category, setCategory] = useState('');
   const [noOfPieces, setnoOfPieces] = useState('');
   const [description, setDescription] = useState('');
@@ -70,10 +57,8 @@ export default function ArtEditScreen() {
         dispatch({ type: 'FETCH_REQUEST' });
         const { data } = await axios.get(`https://fanartiks.onrender.com/api/arts/${artId}`);
         setName(data.name);
-        setSlug(data.slug);
         setPrice(data.price);
         setImage(data.image);
-        setImages(data.images);
         setCategory(data.category);
         setnoOfPieces(data.noOfPieces);
         setDescription(data.description);
@@ -92,19 +77,17 @@ export default function ArtEditScreen() {
     e.preventDefault();
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('description', description);
+      formData.append('price', price);
+      formData.append('image', image);
+      formData.append('category', category);
+      formData.append('noOfPieces', noOfPieces);
+
       await axios.put(
-        `/api/arts/${artId}`,
-        {
-          _id: artId,
-          name,
-          slug,
-          price,
-          image,
-          images,
-          category,
-          noOfPieces,
-          description,
-        },
+        `http://localhost:4000/api/arts/${artId}`,
+        formData,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -113,44 +96,14 @@ export default function ArtEditScreen() {
         type: 'UPDATE_SUCCESS',
       });
       toast.success('Art updated successfully');
-      navigate('/admin/arts');
+      navigate('/');
     } catch (err) {
       toast.error(getError(err));
       dispatch({ type: 'UPDATE_FAIL' });
     }
   };
-  const uploadFileHandler = async (e, forImages) => {
-    const file = e.target.files[0];
-    const bodyFormData = new FormData();
-    bodyFormData.append('file', file);
-    try {
-      dispatch({ type: 'UPLOAD_REQUEST' });
-      const { data } = await axios.post('https://fanartiks.onrender.com/api/upload', bodyFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          authorization: `Bearer ${userInfo.token}`,
-        },
-      });
-      dispatch({ type: 'UPLOAD_SUCCESS' });
 
-      if (forImages) {
-        setImages([...images, data.secure_url]);
-      } else {
-        setImage(data.secure_url);
-      }
-      toast.success('Image uploaded successfully. click Update to apply it');
-    } catch (err) {
-      toast.error(getError(err));
-      dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
-    }
-  };
-  const deleteFileHandler = async (fileName, f) => {
-    console.log(fileName, f);
-    console.log(images);
-    console.log(images.filter((x) => x !== fileName));
-    setImages(images.filter((x) => x !== fileName));
-    toast.success('Image removed successfully. click Update to apply it');
-  };
+
   return (
     <Container className="small-container">
       <Helmet>
@@ -172,71 +125,43 @@ export default function ArtEditScreen() {
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="slug">
-            <Form.Label>Slug</Form.Label>
-            <Form.Control
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-              required
-            />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>Price ($)</Form.Label>
             <Form.Control
               value={price}
+              type="number"
               onChange={(e) => setPrice(e.target.value)}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="image">
-            <Form.Label>Image File</Form.Label>
-            <Form.Control
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              required
-            />
-          </Form.Group>
+          
+          
           <Form.Group className="mb-3" controlId="imageFile">
             <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" onChange={uploadFileHandler} />
-            {loadingUpload && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="additionalImage">
-            <Form.Label>Additional Images</Form.Label>
-            {images.length === 0 && <MessageBox>No image</MessageBox>}
-            <ListGroup variant="flush">
-              {images.map((x) => (
-                <ListGroup.Item key={x}>
-                  {x}
-                  <Button variant="light" onClick={() => deleteFileHandler(x)}>
-                    <i className="fa fa-times-circle"></i>
-                  </Button>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="additionalImageFile">
-            <Form.Label>Upload Aditional Image</Form.Label>
-            <Form.Control
-              type="file"
-              onChange={(e) => uploadFileHandler(e, true)}
-            />
-            {loadingUpload && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
+            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="category">
             <Form.Label>Category</Form.Label>
             <Form.Control
+              as="select"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               required
-            />
+            >
+              <option value="">Select Category</option>
+              <option value="painting">Painting</option>
+              <option value="digital">Digital</option>
+              <option value="craft">Craft</option>
+            </Form.Control>
           </Form.Group>
+
+
           <Form.Group className="mb-3" controlId="noOfPieces">
             <Form.Label>Number of artworks</Form.Label>
             <Form.Control
               value={noOfPieces}
+              type="number"
               onChange={(e) => setnoOfPieces(e.target.value)}
               required
             />

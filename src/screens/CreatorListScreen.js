@@ -4,11 +4,12 @@ import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { ButtonGroup, Flex, Image } from '@chakra-ui/react';
+import { Avatar, ButtonGroup, Flex, Image } from '@chakra-ui/react';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 import { getError } from '../utils';
+import { Link } from 'react-router-dom';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -114,10 +115,14 @@ export default function CreatorListScreen() {
             {users.map((user) => (
               <tr key={user._id}>
                 <td>
-                  <Image src='#' />
+                  <Link to={`/creator/profile/${user._id}`}><Avatar size='md' name={user.name} src={user.image} /></Link>
                 </td>
-                <td>{user.name}</td>
-                <td>@{user.username}</td>
+                <td>
+                  <Link to={`/creator/profile/${user._id}`}>{user.name}</Link>
+                </td>
+                <td>
+                  <Link to={`/creator/profile/${user._id}`}>@{user.username}</Link>
+                </td>
                 <td>
                     <Button
                       type="button"
