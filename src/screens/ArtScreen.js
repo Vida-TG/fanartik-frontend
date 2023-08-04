@@ -87,7 +87,7 @@ function ArtScreen() {
       ) : (
       <Box pt="20px">
         {
-          userInfo._id === art.creator &&
+          userInfo && userInfo._id === art.creator &&
           <Flex w="100%" mb="20px">
             <Spacer/>
             <Button variant='light' colorScheme='yellow' onClick={() => navigate(`/creator/art/${art._id}`)}>
