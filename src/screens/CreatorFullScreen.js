@@ -18,7 +18,7 @@ function CreatorFullScreen() {
   useEffect(() => {
     const fetchCreatorDetails = async () => {
       try {
-        const { data } = await axios.get(`http://localhost:4000/api/users/creator-profile/${id}`);
+        const { data } = await axios.get(`https://fanartiks.onrender.com/api/users/creator-profile/${id}`);
         setCreator(data.creator);
         setArts(data.arts);
         setTotalArts(data.totalArts);

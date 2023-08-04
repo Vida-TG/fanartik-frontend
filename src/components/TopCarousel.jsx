@@ -36,7 +36,7 @@ const TopCarousel = () => {
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/arts/recent-artworks');
+        const response = await axios.get('https://fanartiks.onrender.com/api/arts/recent-artworks');
         setArtworks(response.data);
         setLoading(false);
       } catch (error) {

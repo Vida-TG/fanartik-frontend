@@ -86,7 +86,7 @@ export default function ArtEditScreen() {
       formData.append('noOfPieces', noOfPieces);
 
       await axios.put(
-        `http://localhost:4000/api/arts/${artId}`,
+        `https://fanartiks.onrender.com/api/arts/${artId}`,
         formData,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },

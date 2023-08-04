@@ -15,7 +15,7 @@ const TopArtists = () => {
     useEffect(() => {
         const fetchTopCreators = async () => {
           try {
-            const response = await axios.get('http://localhost:4000/api/users/top-creators');
+            const response = await axios.get('https://fanartiks.onrender.com/api/users/top-creators');
             setTopCreators(response.data);
             setLoading(false);
           } catch (error) {

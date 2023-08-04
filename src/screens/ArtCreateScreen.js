@@ -54,7 +54,7 @@ export default function ArtCreateScreen() {
       formData.append('noOfPieces', noOfPieces);
 
       await axios.post(
-        `http://localhost:4000/api/arts`,
+        `https://fanartiks.onrender.com/api/arts`,
         formData,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },

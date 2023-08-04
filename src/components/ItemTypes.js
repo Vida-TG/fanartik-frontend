@@ -54,7 +54,7 @@ const ItemTypes = () => {
         const fetchData = async () => {
             dispatch({ type: 'FETCH_REQUEST'});
             try {
-                const result = await axios.get('http://localhost:4000/api/arts/get-by-category');
+                const result = await axios.get('https://fanartiks.onrender.com/api/arts/get-by-category');
                 dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
             } catch (err) {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(err) });

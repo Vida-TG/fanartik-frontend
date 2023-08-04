@@ -48,7 +48,7 @@ export default function ProfileScreen() {
         formData.append('image', image);
         formData.append('password', password);
         const { data } = await axios.put(
-        'http://localhost:4000/api/users/profile',
+        'https://fanartiks.onrender.com/api/users/profile',
         formData,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
