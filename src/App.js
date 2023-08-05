@@ -7,6 +7,7 @@ import CreatorFullScreen from './screens/CreatorFullScreen';
 import Container from 'react-bootstrap/Container';
 import CartScreen from './screens/CartScreen';
 import SigninScreen from './screens/SigninScreen';
+import CreatorSignUpScreen from './screens/CreatorSignUpScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SignupScreen from './screens/SignupScreen';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
@@ -136,7 +137,12 @@ function App() {
 
 
 
-
+              <Route
+                path="/become-a-fanartik"
+                element={
+                  <CreatorSignUpScreen />
+                }
+              ></Route>
 
               <Route
                 path="/creator/profile/:id"

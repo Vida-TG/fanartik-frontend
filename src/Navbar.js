@@ -87,9 +87,14 @@ const Navbar = () => {
             </Menu>
             ):
             (
-                <Link p="0px 25px" className="spacing" to="/signin">
-                  Login
-                </Link>
+                <>
+                    <Link p="0px 25px" className="spacing" to="/signin">
+                    Login
+                    </Link>
+                    <Link p="0px 25px" className="spacing" to="/become-a-fanartik">
+                        Join as an Artist
+                    </Link>
+                </>
             )}
             {userInfo && userInfo.isCreator && (
             <Menu p="0px 25px">
@@ -231,9 +236,14 @@ const Navbar = () => {
                                 <Link className="mobile-link" to="#signout" onClick={signoutHandler}>Sign out</Link>
                             </>
                         ) : (
-                            <Link className="mobile-link" to="/signin">
-                                Sign in
-                            </Link>
+                            <>
+                                <Link className="mobile-link" to="/signin">
+                                    Sign in
+                                </Link>
+                                <Link className="mobile-link" to="/become-a-fanartik">
+                                    Join as an Artist
+                                </Link>
+                            </>
                         )}
                     </DrawerBody>
                 </DrawerContent>
