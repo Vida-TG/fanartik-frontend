@@ -47,6 +47,7 @@ export default function UserEditScreen() {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [isCreator, setIsCreator] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -59,6 +60,7 @@ export default function UserEditScreen() {
         setName(data.name);
         setUsername(data.username)
         setEmail(data.email);
+        setIsCreator(data.isCreator);
         setIsAdmin(data.isAdmin);
         dispatch({ type: 'FETCH_SUCCESS' });
       } catch (err) {
@@ -77,7 +79,7 @@ export default function UserEditScreen() {
       dispatch({ type: 'UPDATE_REQUEST' });
       await axios.put(
         `https://fanartiks.onrender.com/api/users/${userId}`,
-        { _id: userId, name, username, email, isAdmin },
+        { _id: userId, name, username, email, isCreator, isAdmin },
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -130,6 +132,15 @@ export default function UserEditScreen() {
               required
             />
           </Form.Group>
+
+          <Form.Check
+            className="mb-3"
+            type="checkbox"
+            id="isCreator"
+            label="isCreator"
+            checked={isCreator}
+            onChange={(e) => setIsCreator(e.target.checked)}
+          />
 
           <Form.Check
             className="mb-3"

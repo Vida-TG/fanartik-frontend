@@ -100,7 +100,10 @@ export default function CreatorListScreen() {
       <Helmet>
         <title>Creators</title>
       </Helmet>
-      <h1>Creators</h1>
+      <h1>Artists</h1>
+      { users &&
+        (<h3>Total number of artists: {users.length}</h3>)
+      }
 
       {loadingDelete && <Flex w="100%" align="center" justify="center"><LoadingBox></LoadingBox></Flex>}
       {loading ? (
